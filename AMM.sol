@@ -66,7 +66,7 @@ contract AMM is AccessControl{
       qtyB=ERC20(tokenB).balanceOf(address(this))-invariant/denominator;
       ERC20(tokenB).transferFrom(address(this), msg.sender, qtyB);
 
-      emit Swap( ERC20(tokenA).address(this), ERC20(tokenB).address(this), qtyA, qtyB );
+      emit Swap( address(this), msg.sender , qtyA, qtyB );
     }
 
     else{
@@ -76,7 +76,7 @@ contract AMM is AccessControl{
       qtyA=ERC20(tokenA).balanceOf(address(this))-invariant/denominator;
       ERC20(tokenA).transferFrom(address(this), msg.sender, qtyA);
 
-      emit Swap( ERC20(tokenB).address(this), ERC20(tokenA).address(this), qtyB, qtyA );
+      emit Swap( address(this), msg.sender , qtyB, qtyA );
     }
 
 		uint256 new_invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
@@ -92,10 +92,10 @@ contract AMM is AccessControl{
 	function provideLiquidity( uint256 amtA, uint256 amtB ) public {
 		require( amtA > 0 || amtB > 0, 'Cannot provide 0 liquidity' );
 		//YOUR CODE HERE
-    ERC20(tokenA).transferFrom(msg.sender, address(this), amtA);
-    ERC20(tokenB).transferFrom(msg.sender, address(this), amtB);
+    		ERC20(tokenA).transferFrom(msg.sender, address(this), amtA);
+    		ERC20(tokenB).transferFrom(msg.sender, address(this), amtB);
 
-    invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
+    		invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
 
 		emit LiquidityProvision( msg.sender, amtA, amtB );
 	}
