@@ -95,8 +95,6 @@ contract AMM is AccessControl{
 	function provideLiquidity( uint256 amtA, uint256 amtB ) public {
 		require( amtA > 0 || amtB > 0, 'Cannot provide 0 liquidity' );
 		//YOUR CODE HERE
-    address tokenAaddress=getTokenAddress(0);
-    address tokenBaddress=getTokenAddress(1);
 
     ERC20(tokenA).transferFrom(msg.sender, tokenAaddress, amtA);
     ERC20(tokenB).transferFrom(msg.sender, tokenBaddress, amtB);
