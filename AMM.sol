@@ -57,8 +57,8 @@ contract AMM is AccessControl{
 		uint256 swapAmt;
 
 		//YOUR CODE HERE 
-    tokenAaddress=getTokenAddress(0);
-    tokenBaddress=getTokenAddress(1);
+    address tokenAaddress=getTokenAddress(0);
+    address tokenBaddress=getTokenAddress(1);
 
     if(sellToken==tokenA){
       qtyA=sellAmount;  
