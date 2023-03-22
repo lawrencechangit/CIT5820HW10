@@ -66,7 +66,7 @@ contract AMM is AccessControl{
 		      ERC20(tokenB).transferFrom(address(this), msg.sender, qtyB);
 		    }
 
-	    	else{
+	    	else if (sellToken==tokenB){
 		      qtyB=sellAmount;
 		      ERC20(tokenB).transferFrom(msg.sender, address(this), qtyB);
 		      swapAmt=qtyB*(10^4-feebps)/10^4;
