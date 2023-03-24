@@ -62,22 +62,22 @@ contract AMM is AccessControl{
 
     if(sellToken==tokenA){
       qtyA=sellAmount;  
-      ERC20(tokenA).transferFrom(msg.sender, tokenAaddress, qtyA);
+      ERC20(tokenA).transferFrom(msg.sender, tokenA, qtyA);
       swapAmt=qtyA*(10**4-feebps)/10**4;
       uint256 denominator=ERC20(tokenA).balanceOf(address(this))+swapAmt;
       qtyB=ERC20(tokenB).balanceOf(address(this))-invariant/denominator;
-      ERC20(tokenB).transferFrom(tokenBaddress, msg.sender, qtyB);
+      ERC20(tokenB).transferFrom(tokenB, msg.sender, qtyB);
 
       emit Swap( tokenA, tokenB, qtyA, qtyB );
     }
 
     else{
       qtyB=sellAmount;
-      ERC20(tokenB).transferFrom(msg.sender, tokenBaddress, qtyB);
+      ERC20(tokenB).transferFrom(msg.sender, tokenB, qtyB);
       swapAmt=qtyB*(10**4-feebps)/10**4;
       uint256 denominator=ERC20(tokenB).balanceOf(address(this))+swapAmt;
       qtyA=ERC20(tokenA).balanceOf(address(this))-invariant/denominator;
-      ERC20(tokenA).transferFrom(tokenAaddress, msg.sender, qtyA);
+      ERC20(tokenA).transferFrom(tokenA, msg.sender, qtyA);
 
       emit Swap( tokenB, tokenA, qtyB, qtyA );
     }
