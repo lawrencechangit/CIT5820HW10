@@ -71,16 +71,16 @@ contract AMM is AccessControl{
       emit Swap( tokenA, tokenB, qtyA, qtyB );
     }
 
-    //else{
-      //qtyB=sellAmount;
-      //ERC20(tokenB).transferFrom(msg.sender, tokenB, qtyB);
-      //swapAmt=qtyB*(10**4-feebps)/10**4;
-      //uint256 denominator=ERC20(tokenB).balanceOf(address(this))+swapAmt;
-      //qtyA=ERC20(tokenA).balanceOf(address(this))-invariant/denominator;
-      //ERC20(tokenA).transferFrom(tokenA, msg.sender, qtyA);
+    else{
+      qtyB=sellAmount;
+      ERC20(tokenB).transferFrom(msg.sender, tokenB, qtyB);
+      swapAmt=qtyB*(10**4-feebps)/10**4;
+      uint256 denominator=ERC20(tokenB).balanceOf(address(this))+swapAmt;
+      qtyA=ERC20(tokenA).balanceOf(address(this))-invariant/denominator;
+      ERC20(tokenA).transferFrom(tokenA, msg.sender, qtyA);
 
-      //emit Swap( tokenB, tokenA, qtyB, qtyA );
-    //}
+      emit Swap( tokenB, tokenA, qtyB, qtyA );
+    }
 
 		uint256 new_invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
 		require( new_invariant >= invariant, 'Bad trade' );
