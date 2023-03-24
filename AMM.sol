@@ -57,8 +57,8 @@ contract AMM is AccessControl{
 		uint256 swapAmt;
 
 		//YOUR CODE HERE 
-    address tokenAaddress=getTokenAddress(0);
-    address tokenBaddress=getTokenAddress(1);
+    //address tokenAaddress=getTokenAddress(0);
+    //address tokenBaddress=getTokenAddress(1);
 
     if(sellToken==tokenA){
       qtyA=sellAmount;  
@@ -68,7 +68,7 @@ contract AMM is AccessControl{
       qtyB=ERC20(tokenB).balanceOf(address(this))-invariant/denominator;
       ERC20(tokenB).transferFrom(tokenBaddress, msg.sender, qtyB);
 
-      emit Swap( tokenAaddress, tokenBaddress, qtyA, qtyB );
+      emit Swap( tokenA, tokenB, qtyA, qtyB );
     }
 
     else{
@@ -79,7 +79,7 @@ contract AMM is AccessControl{
       qtyA=ERC20(tokenA).balanceOf(address(this))-invariant/denominator;
       ERC20(tokenA).transferFrom(tokenAaddress, msg.sender, qtyA);
 
-      emit Swap( tokenBaddress, tokenAaddress, qtyB, qtyA );
+      emit Swap( tokenB, tokenA, qtyB, qtyA );
     }
 
 		uint256 new_invariant = ERC20(tokenA).balanceOf(address(this))*ERC20(tokenB).balanceOf(address(this));
